@@ -74,3 +74,21 @@ li{
     padding:10px;
     border-radius:6px;
 }
+
+li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+li button{
+    width:auto;
+    background:red;
+    padding:6px 10px;
+    border-radius:5px;
+}
+
+li button:hover{
+    background:darkred;
+}

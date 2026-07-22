@@ -32,6 +32,7 @@ form.addEventListener("submit", function (e) {
 });
 
 function addTransaction(transaction) {
+
     const sign = transaction.amount < 0 ? "-" : "+";
 
     const item = document.createElement("li");
@@ -39,6 +40,7 @@ function addTransaction(transaction) {
     item.innerHTML = `
         ${transaction.text}
         <span>${sign}₹${Math.abs(transaction.amount)}</span>
+        <button onclick="removeTransaction(${transaction.id})">❌</button>
     `;
 
     list.appendChild(item);
@@ -60,4 +62,17 @@ function updateValues() {
     balance.innerText = `₹${total.toFixed(2)}`;
     moneyPlus.innerText = `₹${income.toFixed(2)}`;
     moneyMinus.innerText = `₹${Math.abs(expense).toFixed(2)}`;
+}
+
+function removeTransaction(id) {
+
+    transactions = transactions.filter(
+        transaction => transaction.id !== id
+    );
+
+    list.innerHTML = "";
+
+    transactions.forEach(addTransaction);
+
+    updateValues();
 }
