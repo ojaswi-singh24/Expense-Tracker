@@ -25,7 +25,8 @@ form.addEventListener("submit", function (e) {
     const transaction = {
         id: Date.now(),
         text: text.value,
-        amount: Number(amount.value)
+        amount: Number(amount.value),
+        date: new Date().toLocaleDateString("en-IN")
     };
 
     transactions.push(transaction);
@@ -45,11 +46,16 @@ function addTransaction(transaction) {
 
     const item = document.createElement("li");
 
-    item.innerHTML = `
-        ${transaction.text}
-        <span>${sign}₹${Math.abs(transaction.amount)}</span>
-        <button onclick="removeTransaction(${transaction.id})">❌</button>
-    `;
+item.innerHTML = `
+    <div>
+        <strong>${transaction.text}</strong><br>
+        <small>${transaction.date}</small>
+    </div>
+
+    <span>${sign}₹${Math.abs(transaction.amount)}</span>
+
+    <button onclick="removeTransaction(${transaction.id})">❌</button>
+`;
 
     list.appendChild(item);
 }
