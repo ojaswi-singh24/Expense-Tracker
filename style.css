@@ -92,3 +92,12 @@ li button{
 li button:hover{
     background:darkred;
 }
+
+#search{
+    width:100%;
+    padding:10px;
+    margin:10px 0 20px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}

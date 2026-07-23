@@ -5,6 +5,7 @@ const list = document.getElementById("list");
 const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
+const search = document.getElementById("search");
 
 const localStorageTransactions =
     JSON.parse(localStorage.getItem("transactions"));
@@ -38,6 +39,7 @@ form.addEventListener("submit", function (e) {
 
     text.value = "";
     amount.value = "";
+    search.value = "";
 });
 
 function addTransaction(transaction) {
@@ -99,6 +101,22 @@ function updateLocalStorage() {
     );
 }
 
+function filterTransactions() {
+    const searchText = search.value.toLowerCase();
+
+    const items = document.querySelectorAll("#list li");
+
+    items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+
+        if (text.includes(searchText)) {
+            item.style.display = "flex";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
 function init() {
     list.innerHTML = "";
 
@@ -108,3 +126,5 @@ function init() {
 }
 
 init();
+
+search.addEventListener("input", filterTransactions);
