@@ -6,6 +6,7 @@ const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
 const search = document.getElementById("search");
+const filter = document.getElementById("filter");
 
 const localStorageTransactions =
     JSON.parse(localStorage.getItem("transactions"));
@@ -103,13 +104,25 @@ function updateLocalStorage() {
 
 function filterTransactions() {
     const searchText = search.value.toLowerCase();
+    const filterValue = filter.value;
 
     const items = document.querySelectorAll("#list li");
 
     items.forEach(item => {
         const text = item.innerText.toLowerCase();
 
-        if (text.includes(searchText)) {
+        const amount = Number(
+            item.querySelector("span").innerText.replace("₹", "")
+        );
+
+        const matchesSearch = text.includes(searchText);
+
+        const matchesFilter =
+            filterValue === "all" ||
+            (filterValue === "income" && amount > 0) ||
+            (filterValue === "expense" && amount < 0);
+
+        if (matchesSearch && matchesFilter) {
             item.style.display = "flex";
         } else {
             item.style.display = "none";
@@ -128,3 +141,4 @@ function init() {
 init();
 
 search.addEventListener("input", filterTransactions);
+filter.addEventListener("change", filterTransactions);
